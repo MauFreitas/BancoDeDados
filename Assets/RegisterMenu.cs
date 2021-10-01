@@ -4,16 +4,36 @@ using UnityEngine;
 
 public class RegisterMenu : BaseUIManager
 {
+    [Space()]
+
     [SerializeField]
     private TextMeshProUGUI _feedBackText = null;
+
+    [Space()]
+
     [SerializeField]
+
     private TMP_InputField _userNameField = null;
+
+    [Space()]
+
+    [SerializeField]
+
+    private TMP_InputField _userNameFieldSelection = null;
+
+    [Space()]
+
     [SerializeField]
     private TMP_InputField _EmailNameField = null;
+
+    [Space()]
+
     [SerializeField]
     private TMP_InputField _PassWordNameField = null;
 
-    private bool wait = false;
+    [Space()]
+
+    private bool _wait = false;
     private bool _updateTime = false;
 
     private const int minNameSize = 2;
@@ -26,7 +46,7 @@ public class RegisterMenu : BaseUIManager
     private readonly Color _green = Color.green;
 
     private float _time = 0.0f;
-    private const float _maxFeedBackTime = 3.0f;
+    private const float _maxFeedBackTime = 4.0f;
 
     private void Update()
     {
@@ -40,10 +60,15 @@ public class RegisterMenu : BaseUIManager
             }
         }
     }
+    public override void Open()
+    {
+        base.Open();
+        _userNameFieldSelection.SetFocus();
+    }
 
     public void onClickRegister()
     {
-        if (wait)
+        if (_wait)
         {
             return;
         }
@@ -64,7 +89,7 @@ public class RegisterMenu : BaseUIManager
     }
     public void OnClickBack()
     {
-        if (wait)
+        if (_wait)
         {
             return;
         }
@@ -83,10 +108,18 @@ public class RegisterMenu : BaseUIManager
         _userNameField.interactable = false;
         _EmailNameField.interactable = false;
         _PassWordNameField.interactable = false;
-       wait = true;
+       _wait = true;
         yield return null;
         UpdateFeedBack("Registro feito com sucesso", true);
-        wait = false;
+        _wait = false;
+
+        _userNameField.interactable = true;
+        _EmailNameField.interactable = true;
+        _PassWordNameField.interactable = true;
+
+        _userNameField.interactable = "";
+        _EmailNameField.interactable = "";
+        _PassWordNameField.interactable = "";
     }
 
 }

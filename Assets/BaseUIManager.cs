@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class BaseUIManager : MonoBehaviour
+public abstract class BaseUIManager : MonoBehaviour
 
 {
     [SerializeField]

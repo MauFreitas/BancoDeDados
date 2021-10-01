@@ -1,0 +1,115 @@
+﻿using UnityEngine.UI;
+using TMPro;
+using UnityEngine;
+using System.Collections;
+
+public class MenuLogin : BaseUIManager
+{
+    [Space()]
+
+    [SerializeField]
+    private TextMeshProUGUI _feedbackText = null;
+
+    [Space()]
+
+    [SerializeField]
+    private ChangeFieldSelection _emailFieldSelection = null;
+
+    [Space()]
+
+    [SerializeField]
+    private Button _loginButton = null;
+    [SerializeField]
+    private Button _backButton = null;
+
+    [Space()]
+
+    [SerializeField]
+    private TMP_InputField _emailField = null;
+    [SerializeField]
+    private TMP_InputField _passWordField = null;
+
+    private bool _updateTime = false;
+
+    private float _time = 0.0f;
+    private const float _maxFeedBackTime = 4.0f;
+    private const int _minPassWordSize = 8;
+    private const int _maxPassWordSize = 16;
+
+    private void Update()
+    {
+        if (_updateTime)
+        {
+            _time += Time.deltaTime;
+            {
+                _feedbackText.text = "";
+                _updateTime = false;
+            }
+        }
+    }
+    public override void Open()
+    {
+        base.Open();
+        ClearUI();
+    }
+    public void OnClickLogin()
+    {
+        string email = _emailField.text;
+
+        if (string.IsNullOrEmpty(email))
+        {
+            UpdateFeedback("Você não digiou um email");
+            return;
+        }
+        string password = _passWordField.text;
+        if(password.Length< _minPassWordSize)
+        {
+            UpdateFeedback($"A senha digitada tem menos de {_minPassWordSize} caracteres");
+            return;
+        }
+        if(password.Length > _maxPassWordSize)
+        {
+            UpdateFeedback($"A senha digitada tem mais de {_maxPassWordSize} caracteres");
+            return;
+        }
+        StartCoroutine(Login());
+    }
+    
+    private void ClearUI()
+    {
+        _emailField.text = "";
+        _passWordField.text = "";
+
+        _emailField.interactable = true;
+        _passWordField.interactable = true;
+
+        _loginButton.interactable = true;
+        _backButton.interactable = true;
+
+        _emailFieldSelection.SetFocus();
+
+
+    }
+    public void OnClickBack()
+    {
+        _uiManager.OpenUI(UI.Main_Menu);
+    }
+    private void UpdateFeedback(string text)
+    {
+        _time = 0.0f;
+        _updateTime = true;
+
+        _feedbackText.text = text;
+    }
+    private IEnumerator Login()
+    {
+        _emailField.interactable = false;
+        _passWordField.interactable = false;
+
+        _loginButton.interactable = false;
+        _backButton.interactable = false;
+        yield return null;
+
+    }
+
+}
