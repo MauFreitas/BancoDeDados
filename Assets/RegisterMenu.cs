@@ -1,7 +1,7 @@
-﻿using System.Collections;
+﻿using UnityEngine.UI;
 using TMPro;
 using UnityEngine;
-
+using System.Collections;
 public class RegisterMenu : BaseUIManager
 {
     [Space()]
@@ -19,7 +19,7 @@ public class RegisterMenu : BaseUIManager
 
     [SerializeField]
 
-    private TMP_InputField _userNameFieldSelection = null;
+    private ChangeFieldSelection _userNameFieldSelection = null;
 
     [Space()]
 
