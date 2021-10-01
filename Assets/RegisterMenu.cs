@@ -5,34 +5,21 @@ using System.Collections;
 public class RegisterMenu : BaseUIManager
 {
     [Space()]
-
     [SerializeField]
     private TextMeshProUGUI _feedBackText = null;
-
     [Space()]
-
     [SerializeField]
-
     private TMP_InputField _userNameField = null;
-
     [Space()]
-
     [SerializeField]
-
     private ChangeFieldSelection _userNameFieldSelection = null;
-
     [Space()]
-
     [SerializeField]
     private TMP_InputField _EmailNameField = null;
-
     [Space()]
-
     [SerializeField]
     private TMP_InputField _PassWordNameField = null;
-
     [Space()]
-
     private bool _wait = false;
     private bool _updateTime = false;
 
@@ -117,9 +104,13 @@ public class RegisterMenu : BaseUIManager
         _EmailNameField.interactable = true;
         _PassWordNameField.interactable = true;
 
-        _userNameField.interactable = "";
-        _EmailNameField.interactable = "";
-        _PassWordNameField.interactable = "";
+        //_userNameField.interactable = "";
+        //_EmailNameField.interactable = "";
+        //_PassWordNameField.interactable = "";
     }
 
+    public override void ResetUI()
+    {
+        //throw new System.NotImplementedException();
+    }
 }
