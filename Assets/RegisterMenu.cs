@@ -20,6 +20,7 @@ public class RegisterMenu : BaseUIManager
     [SerializeField]
     private TMP_InputField _PassWordNameField = null;
     [Space()]
+    
     private bool _wait = false;
     private bool _updateTime = false;
 
@@ -89,13 +90,16 @@ public class RegisterMenu : BaseUIManager
         _updateTime = true;
         _feedBackText.text = text;
         _feedBackText.color = sucess ? _green : _red;
+        //Não fica verde de jeito nenhum quando da certo!!!!!!!!!
     }
     private IEnumerator Register()
     {
+        _wait = true;
+
         _userNameField.interactable = false;
         _EmailNameField.interactable = false;
         _PassWordNameField.interactable = false;
-       _wait = true;
+       
         yield return null;
         UpdateFeedBack("Registro feito com sucesso", true);
         _wait = false;
@@ -104,9 +108,9 @@ public class RegisterMenu : BaseUIManager
         _EmailNameField.interactable = true;
         _PassWordNameField.interactable = true;
 
-        //_userNameField.interactable = "";
-        //_EmailNameField.interactable = "";
-        //_PassWordNameField.interactable = "";
+        _userNameField.text = "";
+        _EmailNameField.text = "";
+        _PassWordNameField.text = "";
     }
 
     public override void ResetUI()
