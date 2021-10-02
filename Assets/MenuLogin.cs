@@ -110,16 +110,22 @@ public class MenuLogin : BaseUIManager
         _loginButton.interactable = false;
         _backButton.interactable = false;
         yield return null;
-
+        //conseguiu acessar o banco de dados
+        //_uiManager.OpenUI(UI.Characters_Menu);
+        _uiManager.OpenUI(UI.Main_Menu);
     }
-    private IEnumerator Register()
+    /*private IEnumerator Register()
     {       
         _emailField.interactable = false;
         _emailField.interactable = false;
 
+        _loginButton.interactable = false;
+        _backButton.interactable = false;
+
         yield return null;
         //conseguiu acessar o banco de dados
-        _uiManager.OpenUI(UI.Characters_Menu);
-    }
+        //_uiManager.OpenUI(UI.Characters_Menu);
+        _uiManager.OpenUI(UI.Main_Menu);
+    }*/
 
 }
