@@ -1,7 +1,8 @@
-﻿using UnityEngine.UI;
+﻿using UnityEngine.Networking;
 using TMPro;
 using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class MenuLogin : BaseUIManager
 {
@@ -29,12 +30,15 @@ public class MenuLogin : BaseUIManager
     [SerializeField]
     private TMP_InputField _passWordField = null;
 
+    private bool _wait = false;
+
     private bool _updateTime = false;
 
     private float _time = 0.0f;
     private const float _maxFeedBackTime = 4.0f;
     private const int _minPassWordSize = 8;
     private const int _maxPassWordSize = 16;
+    private const string _loginLink = "www.localhost/unity/login.php";
 
     private void Update()
     {
@@ -77,7 +81,8 @@ public class MenuLogin : BaseUIManager
     }
     
     private void ClearUI()
-    {
+    {   
+        _wait =false;
         _emailField.text = "";
         _passWordField.text = "";
 
@@ -102,6 +107,7 @@ public class MenuLogin : BaseUIManager
 
         _feedbackText.text = text;
     }
+    private string nomeDoUsuario;
     private IEnumerator Login()
     {
         _emailField.interactable = false;
@@ -109,10 +115,31 @@ public class MenuLogin : BaseUIManager
 
         _loginButton.interactable = false;
         _backButton.interactable = false;
-        yield return null;
+
+        WWWForm form = new WWWForm();
+        form.AddField("login", _emailField.text);
+        form.AddField("password", _passWordField.text);
+        UnityWebRequest request = UnityWebRequest.Post(_loginLink, form);
+
+        yield return request.SendWebRequest();
+
+        string result = request.downloadHandler.text;
+        string[] split = result.Split('\t');
+
+        if (int.TryParse(split[0],out int _))
+        {   
+            //login executado com sucesso
+            nomeDoUsuario = split[1];
+            _uiManager.OpenUI(UI.Main_Menu);
+        }
+        else
+        {
+            UpdateFeedback(result);
+            ClearUI(); 
+        }
         //conseguiu acessar o banco de dados
         //_uiManager.OpenUI(UI.Characters_Menu);
-        _uiManager.OpenUI(UI.Main_Menu);
+        
         /*1 pde para o banco de dados verificar se o email e senha são validos
          * 2 banco de dados responde um codigo
          * codigo 0 -> sucesso login

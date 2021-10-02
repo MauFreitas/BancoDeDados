@@ -6442,10 +6442,13 @@ MonoBehaviour:
   _uiManager: {fileID: 1608659679}
   _ui: 2
   _feedBackText: {fileID: 1913698472}
+  _userNameFieldSelection: {fileID: 1159948609}
+  _wait: 0
   _userNameField: {fileID: 1159948606}
-  _userNameFieldSelection: {fileID: 0}
-  _EmailNameField: {fileID: 154956135}
-  _PassWordNameField: {fileID: 1174271976}
+  _emailField: {fileID: 154956135}
+  _passWordField: {fileID: 1174271976}
+  _registerButton: {fileID: 2108400032}
+  _backButton: {fileID: 1992054063}
 --- !u!1 &1992054061
 GameObject:
   m_ObjectHideFlags: 0

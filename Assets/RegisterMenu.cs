@@ -1,25 +1,21 @@
-﻿using UnityEngine.UI;
+﻿using UnityEngine.Networking;
+using UnityEngine.UI;
 using TMPro;
 using UnityEngine;
 using System.Collections;
 public class RegisterMenu : BaseUIManager
 {
+   
     [Space()]
     [SerializeField]
     private TextMeshProUGUI _feedBackText = null;
     [Space()]
-    [SerializeField]
-    private TMP_InputField _userNameField = null;
-    [Space()]
+    
     [SerializeField]
     private ChangeFieldSelection _userNameFieldSelection = null;
     [Space()]
     [SerializeField]
-    private TMP_InputField _EmailNameField = null;
-    [Space()]
-    [SerializeField]
-    private TMP_InputField _PassWordNameField = null;
-    [Space()]
+    
     
     private bool _wait = false;
     private bool _updateTime = false;
@@ -35,6 +31,21 @@ public class RegisterMenu : BaseUIManager
 
     private float _time = 0.0f;
     private const float _maxFeedBackTime = 4.0f;
+    
+    [SerializeField]
+    private TMP_InputField _userNameField = null;
+    [Space()]
+    [SerializeField]
+    private TMP_InputField _emailField = null;
+    [SerializeField]
+    private TMP_InputField _passWordField = null;
+    [Space()]
+    private const string _registerLink = "www.localhost/unity/register.php";
+
+    [SerializeField]
+    private Button _registerButton = null;
+    [SerializeField]
+    private Button _backButton = null;
 
     private void Update()
     {
@@ -51,9 +62,25 @@ public class RegisterMenu : BaseUIManager
     public override void Open()
     {
         base.Open();
-        //_userNameFieldSelection.SetFocus();
+        _userNameFieldSelection.SetFocus();
     }
+    private void ClearUI()
+    {
+        _wait = false;
 
+        _emailField.text = "";
+        _passWordField.text = "";
+        _userNameField.text = "";
+
+        _emailField.interactable = true;
+        _passWordField.interactable = true;
+        _userNameField.interactable = true;
+
+        _registerButton.interactable = true;
+        _backButton.interactable = true;
+
+        _userNameFieldSelection.SetFocus();
+     }
     public void onClickRegister()
     {
         if (_wait)
@@ -66,7 +93,7 @@ public class RegisterMenu : BaseUIManager
             UpdateFeedBack($"Username deve ter entre {minNameSize}  e {maxNameSize} caracteres", false);
             return;
         }
-        string password = _PassWordNameField.text;
+        string password = _passWordField.text;
         if (password.Length < minPasswordSize || username.Length > maxPasswordSize)
         {
             UpdateFeedBack($"Password deve ter entre {minPasswordSize} e {maxPasswordSize} caracteres", false);
@@ -97,21 +124,32 @@ public class RegisterMenu : BaseUIManager
         _wait = true;
 
         _userNameField.interactable = false;
-        _EmailNameField.interactable = false;
-        _PassWordNameField.interactable = false;
-       
-        yield return null;
-        UpdateFeedBack("Registro feito com sucesso", true);
-        _wait = false;
+        _emailField.interactable = false;
+        _passWordField.interactable = false;
 
-        _userNameField.interactable = true;
-        _EmailNameField.interactable = true;
-        _PassWordNameField.interactable = true;
+        _registerButton.interactable = false;
+        _backButton.interactable = false;
 
-        _userNameField.text = "";
-        _EmailNameField.text = "";
-        _PassWordNameField.text = "";
+        WWWForm form = new WWWForm();
+        form.AddField("username", _userNameField.text);
+        form.AddField("email", _emailField.text);
+        form.AddField("password", _passWordField.text);
+
+        UnityWebRequest request = UnityWebRequest.Post(_registerLink, form);
+        yield return request.SendWebRequest();
+
+        if (string.Compare("sucess", request.downloadHandler.text)==0)
+        {
+            UpdateFeedBack("Registro feito com sucesso", true);
+        }
+        else
+        {
+            UpdateFeedBack(request.downloadHandler.text, false);
+        }
+
+        ClearUI();
     }
+     
 
     public override void ResetUI()
     {
