@@ -51,7 +51,7 @@ public class MenuLogin : BaseUIManager
     public override void Open()
     {
         base.Open();
-        //ClearUI();
+        ClearUI();
     }
     public void OnClickLogin()
     {
@@ -113,19 +113,27 @@ public class MenuLogin : BaseUIManager
         //conseguiu acessar o banco de dados
         //_uiManager.OpenUI(UI.Characters_Menu);
         _uiManager.OpenUI(UI.Main_Menu);
+        /*1 pde para o banco de dados verificar se o email e senha são validos
+         * 2 banco de dados responde um codigo
+         * codigo 0 -> sucesso login
+         * codigo 1 -> email errado
+         * codigo 2 -> senha errada
+         * 
+         * if(respostaServidor == 0)
+        {
+            conseguiu acesas o banco de dados 
+        _uiManager.OpenUI(UI.Characters_Menu);
+        
+        }
+        else if(respostaServidor == 1)
+        {
+            UpdateFeedback("Você não digitou um email valido");
+        }
+        else if(respostaServidor == 2)
+        {
+            UpdateFeedback("Você não digitou uma senha valida");
+        }
+         */
     }
-    /*private IEnumerator Register()
-    {       
-        _emailField.interactable = false;
-        _emailField.interactable = false;
-
-        _loginButton.interactable = false;
-        _backButton.interactable = false;
-
-        yield return null;
-        //conseguiu acessar o banco de dados
-        //_uiManager.OpenUI(UI.Characters_Menu);
-        _uiManager.OpenUI(UI.Main_Menu);
-    }*/
 
 }
