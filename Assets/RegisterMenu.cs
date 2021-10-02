@@ -51,7 +51,7 @@ public class RegisterMenu : BaseUIManager
     public override void Open()
     {
         base.Open();
-        _userNameFieldSelection.SetFocus();
+        //_userNameFieldSelection.SetFocus();
     }
 
     public void onClickRegister()
@@ -90,7 +90,7 @@ public class RegisterMenu : BaseUIManager
         _updateTime = true;
         _feedBackText.text = text;
         _feedBackText.color = sucess ? _green : _red;
-        //Não fica verde de jeito nenhum quando da certo!!!!!!!!!
+        //Não fica verde de jeito nenhum quando da certo!!!!!!!! 
     }
     private IEnumerator Register()
     {

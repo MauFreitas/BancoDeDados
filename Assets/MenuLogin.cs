@@ -41,6 +41,7 @@ public class MenuLogin : BaseUIManager
         if (_updateTime)
         {
             _time += Time.deltaTime;
+            if(_time >= _maxFeedBackTime)
             {
                 _feedbackText.text = "";
                 _updateTime = false;
@@ -50,7 +51,7 @@ public class MenuLogin : BaseUIManager
     public override void Open()
     {
         base.Open();
-        ClearUI();
+        //ClearUI();
     }
     public void OnClickLogin()
     {
@@ -71,7 +72,7 @@ public class MenuLogin : BaseUIManager
         {
             UpdateFeedback($"A senha digitada tem mais de {_maxPassWordSize} caracteres");
             return;
-        }
+        }        
         StartCoroutine(Login());
     }
     
@@ -110,6 +111,15 @@ public class MenuLogin : BaseUIManager
         _backButton.interactable = false;
         yield return null;
 
+    }
+    private IEnumerator Register()
+    {       
+        _emailField.interactable = false;
+        _emailField.interactable = false;
+
+        yield return null;
+        //conseguiu acessar o banco de dados
+        _uiManager.OpenUI(UI.Characters_Menu);
     }
 
 }
