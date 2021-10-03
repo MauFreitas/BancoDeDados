@@ -31,14 +31,13 @@ public class MenuLogin : BaseUIManager
     private TMP_InputField _passWordField = null;
 
     private bool _wait = false;
-
     private bool _updateTime = false;
 
     private float _time = 0.0f;
     private const float _maxFeedBackTime = 4.0f;
     private const int _minPassWordSize = 8;
     private const int _maxPassWordSize = 16;
-    private const string _loginLink = "www.localhost/unity/login.php";
+    private const string _loginLink = "http://localhost/aula/login.php";
 
     private void Update()
     {

@@ -40,7 +40,7 @@ public class RegisterMenu : BaseUIManager
     [SerializeField]
     private TMP_InputField _passWordField = null;
     [Space()]
-    private const string _registerLink = "www.localhost/unity/register.php";
+    private const string _registerLink = "http://localhost/aula/registro.php";
 
     [SerializeField]
     private Button _registerButton = null;
@@ -134,11 +134,11 @@ public class RegisterMenu : BaseUIManager
         form.AddField("username", _userNameField.text);
         form.AddField("email", _emailField.text);
         form.AddField("password", _passWordField.text);
-
+ 
         UnityWebRequest request = UnityWebRequest.Post(_registerLink, form);
         yield return request.SendWebRequest();
-
-        if (string.Compare("sucess", request.downloadHandler.text)==0)
+        //Debug.Log(request.downloadHandler.text);
+        if (string.Compare("success", request.downloadHandler.text)==0)
         {
             UpdateFeedBack("Registro feito com sucesso", true);
         }

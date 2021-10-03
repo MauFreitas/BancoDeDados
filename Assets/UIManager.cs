@@ -6,8 +6,7 @@ public enum UI
     None = 0,
     Main_Menu,
     Register_Menu,
-    Login_Menu,
-    Characters_Menu, 
+    Login_Menu, 
 }
 public class UIManager : MonoBehaviour
 {
